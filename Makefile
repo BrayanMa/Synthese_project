@@ -9,6 +9,7 @@ NAME = scene
 
 $(NAME): scene.o cube.o sphere.o cylinder.o torus.o cone.o shape.o
 	$(CC) -o $(NAME) $^ $(LFLAGS)
+	rm *.o
 
 cube.o: $(SOURCE)cube.c $(SOURCE)shape.h	
 	$(CC) $(CFLAGS) $(INCLUDE) -c $(SOURCE)cube.c
