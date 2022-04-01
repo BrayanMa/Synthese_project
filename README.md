@@ -1,1 +1,1 @@
-# Synth-se_project
+# Synthèse_project
