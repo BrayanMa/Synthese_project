@@ -183,8 +183,8 @@ Shape *init_cube()
     if (NULL == (cube->norm = malloc(cube->n1 * cube->n2 * 6 * sizeof(G3Xvector))))
         return NULL;
 
-    double y, x, dy = 2. / (cube->n2 - 1), dx = 2. / (cube->n1 - 1), dz = 2. / (cube->n3 - 1);
-    int i, j, k;
+    double dy = 2. / (cube->n2 - 1), dx = 2. / (cube->n1 - 1), dz = 2. / (cube->n3 - 1);
+    int i, j;
 
     for (i = 0; i < cube->n2 - 1; i++)
     {

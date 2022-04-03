@@ -76,7 +76,7 @@ Shape *init_sphere()
     double theta = (2 * PI) / (sphere->n1 - 1);
     double phi = (PI) / (sphere->n2);
 
-    double r, x, y, z;
+    double r, z;
 
     i = 0;
     for (j = 0; j < sphere->n1; j++)

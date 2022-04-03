@@ -27,12 +27,9 @@ Node *init_node(G3Xhmat Md, G3Xcolor col, double *mat, G3Xvector scale_factor, S
 void add_shape(Node *father, Shape *instance)
 {
     Node *tmp;
-    printf("ajout cube\n");
 
     if (father->down == NULL)
     {
-            printf("oui\n");
-
         father->down = init_node(father->Md, father->col, father->mat, father->scale_factor, instance);
         return;
     }
@@ -44,6 +41,7 @@ void add_shape(Node *father, Shape *instance)
     tmp->next = init_node(father->Md, father->col, father->mat, father->scale_factor, instance);
 }
 
+/* On part du père on dessisne le down en premier puis tout les next */
 void draw_full_node(Node *father)
 {
     Node *tmp;

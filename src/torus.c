@@ -53,7 +53,7 @@ Shape *init_torus()
     double theta = 2 * PI / (torus->n1 - 1);
     double phi = 2 * PI / (torus->n2 - 1); // -1 ici, car on veut NBP faces et pas NBP lignes
 
-    int i, j, k;
+    int i, j;
     for (i = 0; i < torus->n1; i++)
     {
         for (j = 0; j < torus->n2; j++)
