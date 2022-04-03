@@ -1,28 +1,30 @@
-#include "shape.h"
+#include "node.h"
 
 /* tailles de la fenêtre (en pixel) */
 static int WWIDTH = 512, WHEIGHT = 512;
 
-
-//Shape *cube_can;
-//Shape *sphere_can;
-//Shape *cylinder;
-//Shape *torus;
+Shape *cube;
+// Shape *sphere_can;
+// Shape *cylinder;
+Shape *torus;
 Shape *cone;
 
+Node *table;
 
-
-double mat[4] = {0.5, 0.65, 0.5, 0.5};
+double mat[4] = {.2, .6, .9, 1};
 
 /* la fonction d'initialisation : appelée 1 seule fois, au début */
 static void init(void)
 {
-  //cube_can = init_cube();
-  //sphere_can = init_sphere();
-  //cylinder = init_cylinder();
-  //torus = init_torus();
+  cube = init_cube();
+  // sphere_can = init_sphere();
+  // cylinder = init_cylinder();
+  torus = init_torus();
   cone = init_cone();
 
+  table = init_node(g3x_Identity(), G3Xb, mat, (G3Xvector){1, 1, 1}, cone);
+  add_shape(table, torus);
+  add_shape(table, cube);
 }
 
 /* la fonction de contrôle : appelée 1 seule fois, juste après <init> */
@@ -33,11 +35,11 @@ static void ctrl(void)
 /* la fonction de dessin : appelée en boucle */
 static void draw(void)
 {
-  //cube_can->draw_faces(cube_can, (G3Xvector){1,1,1});
-  //sphere_can->draw_faces(sphere_can, (G3Xvector){1,1,1});
-  //cylinder->draw_faces(cylinder, (G3Xvector){1,1,1});
-  //torus->draw_faces(torus,(G3Xvector){1,1,1});
-  cone->draw_faces(cone, (G3Xvector){1,1,1});
+  // cube_can->draw_faces(cube_can, (G3Xvector){1,1,1});
+  // sphere_can->draw_faces(sphere_can, (G3Xvector){1,1,1});
+  // cylinder->draw_faces(cylinder, (G3Xvector){1,1,1});
+  // torus->draw_faces(torus,(G3Xvector){1,1,1});
+  draw_full_node(table);
 }
 
 /* la fonction d'animation (facultatif) */

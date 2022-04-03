@@ -2,11 +2,6 @@
 
 void draw_torus(Shape *torus, G3Xvector scale_factor)
 {
-    g3x_Material(G3Xg, .2, .6, .9, 1, 1);
-    // glPushMatrix();
-    // glScaled(1, 0.2, 0.4);
-
-    glBegin(GL_QUADS);
 
     int step1 = min(1, (int)(1. / scale_factor.x));
     int step2 = min(1, (int)(1. / scale_factor.y));
@@ -37,8 +32,6 @@ void draw_torus(Shape *torus, G3Xvector scale_factor)
             g3x_Vertex3dv(torus->vrtx[k]);
         }
     }
-    glEnd();
-    // glPopMatrix();
 }
 
 Shape *init_torus()

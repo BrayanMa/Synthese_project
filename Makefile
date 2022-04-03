@@ -7,7 +7,7 @@ SOURCE = src/
 
 NAME = scene
 
-$(NAME): scene.o cube.o sphere.o cylinder.o torus.o cone.o shape.o
+$(NAME): scene.o cube.o sphere.o cylinder.o torus.o cone.o shape.o node.o
 	$(CC) -o $(NAME) $^ $(LFLAGS)
 	rm *.o
 
@@ -29,9 +29,11 @@ sphere.o: $(SOURCE)sphere.c	$(SOURCE)shape.h
 torus.o: $(SOURCE)torus.c	$(SOURCE)shape.h
 	$(CC) $(CFLAGS) $(INCLUDE) -c $(SOURCE)torus.c
 
-
 shape.o: $(SOURCE)shape.c $(SOURCE)shape.h
 	$(CC) $(CFLAGS) $(INCLUDE) -c $(SOURCE)shape.c
+
+node.o: $(SOURCE)node.c $(SOURCE)node.h
+	$(CC) $(CFLAGS) $(INCLUDE) -c $(SOURCE)node.c
 
 clean:
 	rm *.o

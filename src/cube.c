@@ -5,8 +5,7 @@ void draw_cube(Shape *cube, G3Xvector scale_factor)
     int step_x = min(1, (int)(1. / scale_factor.x));
     int step_y = min(1, (int)(1. / scale_factor.y));
     int step_z = min(1, (int)(1. / scale_factor.z));
-    glPointSize(1);
-    glBegin(GL_QUADS);
+
     for (int i = 0; i < cube->n2 - 1; i += step_y)
     {
         for (int j = 0; j < cube->n1 - 1; j += step_x)
@@ -167,7 +166,6 @@ void draw_cube(Shape *cube, G3Xvector scale_factor)
             g3x_Vertex3dv(cube->vrtx[cube->n1 * cube->n1 * 5 + k]);
         }
     }
-    glEnd();
 }
 
 Shape *init_cube()

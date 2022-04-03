@@ -2,19 +2,12 @@
 
 void draw_cone(Shape *cone, G3Xvector scale_factor)
 {
-    g3x_Material(G3Xg, .2, .6, .9, 1, 1);
-    // glPushMatrix();
-    // glScaled(1, 0.2, 0.4);
 
-    glBegin(GL_QUADS);
 
     int step1 = min(1, (int)(1. / scale_factor.x));
     int step2 = min(1, (int)(1. / scale_factor.y));
     int step3 = min(1, (int)(1. / scale_factor.z));
 
-    // Face 1 = base du cone
-    // double step_n1 = 1;
-    // printf("%d\n", step_n1);
 
     for (int i = 0; i < cone->n2 - 1; i += step2)
     {
@@ -66,8 +59,6 @@ void draw_cone(Shape *cone, G3Xvector scale_factor)
         }
 
     }
-    glEnd();
-    // glPopMatrix();
 }
 
 Shape *init_cone()
