@@ -78,15 +78,22 @@ void draw_full_node(Node *father)
 
 void draw_node(Node *node)
 {
-    if (NULL == node || node->instance == NULL)
+    if (NULL == node)
         return;
     g3x_Material(node->col, node->mat[0], node->mat[1], node->mat[2], node->mat[3], 1);
     glPushMatrix();
     glMultMatrixd(node->Md.m);
-    glBegin(GL_QUADS);
-    node->instance->draw_faces(node->instance, node->scale_factor);
-    glEnd();
+    if (NULL != node->instance)
+    {
+        glBegin(GL_QUADS);
+        node->instance->draw_faces(node->instance, node->scale_factor);
+        glEnd();
+    }
+    if (node->down != NULL)
+        draw_node(node->down);
     glPopMatrix();
+    if (node->next != NULL)
+        draw_node(node->next);
 }
 
 void apply_homot(Node *node, double x, double y, double z)
