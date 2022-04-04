@@ -4,12 +4,19 @@
 static int WWIDTH = 512, WHEIGHT = 512;
 
 Shape *cube;
-// Shape *sphere_can;
-// Shape *cylinder;
-Shape *torus;
-Shape *cone;
+Shape *cylinder1;
+Shape *cylinder2;
+Shape *cylinder3;
+Shape *cylinder4;
+Shape *test;
 
 Node *table;
+Node *plateau;
+Node *pieds;
+Node *pied1;
+Node *pied2;
+Node *pied3;
+Node *pied4;
 
 double mat[4] = {.2, .6, .9, 1};
 
@@ -17,14 +24,45 @@ double mat[4] = {.2, .6, .9, 1};
 static void init(void)
 {
   cube = init_cube();
-  // sphere_can = init_sphere();
-  // cylinder = init_cylinder();
-  torus = init_torus();
-  cone = init_cone();
+  cylinder1 = init_cylinder();
+  cylinder2 = init_cylinder();
+  cylinder3 = init_cylinder();
+  cylinder4 = init_cylinder();
+  test = init_cylinder();
 
-  table = init_node(g3x_Identity(), G3Xb, mat, (G3Xvector){1, 1, 1}, cone);
-  add_shape(table, torus);
-  add_shape(table, cube);
+  table = init_node(g3x_Identity(), (G3Xcolor){0.30, 0.20, 0.10, 0.00}, mat, (G3Xvector){1, 1, 1});
+  apply_trans(table, 0, 0, 1);
+  // apply_rotat(table, 10, 0, 0);
+
+  plateau = init_node_with_shape(table->Md, (G3Xcolor){0.30, 0.20, 0.10, 0.00}, mat, (G3Xvector){1, 1, 1}, cube);
+  apply_homot(plateau, 0.5, 1, .05);
+  //apply_trans(plateau,0,0,.5);
+
+  pieds = init_node(table->Md, (G3Xcolor){0.30, 0.20, 0.10, 0.00}, mat, (G3Xvector){1, 1, 1});
+  apply_homot(pieds, .07, .07, .8);
+  //apply_rotat(pieds, .1, .1, .1);
+
+  pied1 = init_node_with_shape(pieds->Md, (G3Xcolor){0.60, 0.75, 0.95, 0.00}, mat, (G3Xvector){1, 1, 1}, cylinder1);
+  apply_trans(pied1, .4, -.9, -.8);
+  pied2 = init_node_with_shape(pieds->Md, (G3Xcolor){0.60, 0.75, 0.95, 0.00}, mat, (G3Xvector){1, 1, 1}, cylinder2);
+  apply_trans(pied2, -.4, -.9, -.8);
+  pied3 = init_node_with_shape(pieds->Md, (G3Xcolor){0.60, 0.75, 0.95, 0.00}, mat, (G3Xvector){1, 1, 1}, cylinder3);
+  apply_trans(pied3, -.4, .9, -.8);
+  pied4 = init_node_with_shape(pieds->Md, (G3Xcolor){0.60, 0.75, 0.95, 0.00}, mat, (G3Xvector){1, 1, 1}, cylinder4);
+  apply_trans(pied4, .4, .9, -.8);
+
+  /*pieds->down = pied1;
+  pied1->next = pied2;
+  pied2->next = pied3;
+  pied3->next = pied4;
+
+  plateau->next = pieds;*/
+  table->down = plateau;
+  plateau->next = pieds;
+  pieds->down = pied1;
+  pied1->next = pied2;
+  pied2->next = pied3;
+  pied3->next = pied4;
 }
 
 /* la fonction de contrôle : appelée 1 seule fois, juste après <init> */
@@ -40,6 +78,7 @@ static void draw(void)
   // cylinder->draw_faces(cylinder, (G3Xvector){1,1,1});
   // torus->draw_faces(torus,(G3Xvector){1,1,1});
   draw_full_node(table);
+  // draw_node(table);
 }
 
 /* la fonction d'animation (facultatif) */

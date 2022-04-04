@@ -13,11 +13,15 @@ typedef struct _node_
     Shape *instance;            /* une éventuelle instance d’objet*/
 } Node, *SceneTree;
 
-Node *init_node(G3Xhmat Md, G3Xcolor col, double *mat, G3Xvector scale_factor, Shape *instance);
+Node *init_node_with_shape(G3Xhmat Md, G3Xcolor col, double *mat, G3Xvector scale_factor, Shape *instance);
+Node *init_node(G3Xhmat Md, G3Xcolor col, double *mat, G3Xvector scale_factor);
 
 void add_shape(Node *father, Shape *instance);
 void draw_node();
 void draw_full_node(Node *father);
 
+void apply_homot(Node *node, double x, double y, double z);
+void apply_rotat(Node *node, double x, double y, double z);
+void apply_trans(Node *node, double x, double y, double z);
 
 #endif

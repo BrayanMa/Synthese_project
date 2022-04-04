@@ -74,7 +74,7 @@ static void ctrl(void)
 static void draw(void)
 {
     glPointSize(3);
-    g3x_Material(G3Xg, .2, .6, .9, 1, 1);
+    //g3x_Material(G3Xg, .2, .6, .9, 1, 1);
 
     glBegin(GL_QUADS);
     for (int i = 0; i < cone.n2 - 1; i += scale_n2)

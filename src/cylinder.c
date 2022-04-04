@@ -2,15 +2,10 @@
 
 void draw_cylinder(Shape *cylinder, G3Xvector scale_factor)
 {
-    g3x_Material(G3Xg, .2, .6, .9, 1, 1);
-    // glPushMatrix();
-    // glScaled(1, 0.2, 0.4);
 
     int step1 = min(1, (int)(1. / scale_factor.x));
     int step2 = min(1, (int)(1. / scale_factor.y));
     int step3 = min(1, (int)(1. / scale_factor.z));
-
-    glBegin(GL_QUADS);
 
     // Face 1 = base du cylinder
     // double step_n1 = 1;
@@ -22,7 +17,6 @@ void draw_cylinder(Shape *cylinder, G3Xvector scale_factor)
         {
             int k;
             k = (i)*cylinder->n1 + min(j + step1, cylinder->n1 - 1);
-            printf("%d\n", k);
             // k = (i)*cylinder->n1 + (j + 1);
 
             g3x_Normal3dv(cylinder->norm[k]);
@@ -127,7 +121,6 @@ void draw_cylinder(Shape *cylinder, G3Xvector scale_factor)
              NormalVertex3dv(bottom[min(i + step, NBM) % NBM][j]);
          }*/
     }
-    glEnd();
 }
 
 Shape *init_cylinder()
