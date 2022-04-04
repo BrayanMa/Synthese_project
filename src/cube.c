@@ -2,9 +2,9 @@
 
 void draw_cube(Shape *cube, G3Xvector scale_factor)
 {
-    int step_x = min(1, (int)(1. / scale_factor.x));
-    int step_y = min(1, (int)(1. / scale_factor.y));
-    int step_z = min(1, (int)(1. / scale_factor.z));
+    int step_x = max(1, (int)(1. / scale_factor.x));
+    int step_y = max(1, (int)(1. / scale_factor.y));
+    int step_z = max(1, (int)(1. / scale_factor.z));
 
     for (int i = 0; i < cube->n2 - 1; i += step_y)
     {
@@ -81,7 +81,7 @@ void draw_cube(Shape *cube, G3Xvector scale_factor)
             g3x_Normal3dv(cube->norm[cube->n1 * cube->n1 * 2 + k]);
             g3x_Vertex3dv(cube->vrtx[cube->n1 * cube->n1 * 2 + k]);
 
-            k = min(i + step_y, cube->n3 - 1) * cube->n1 + (j);
+            k = min(i + step_z, cube->n3 - 1) * cube->n1 + (j);
             // k = (i + 1) *  cube->n1 + (j);
             g3x_Normal3dv(cube->norm[cube->n1 * cube->n1 * 2 + k]);
             g3x_Vertex3dv(cube->vrtx[cube->n1 * cube->n1 * 2 + k]);
@@ -107,7 +107,7 @@ void draw_cube(Shape *cube, G3Xvector scale_factor)
             g3x_Normal3dv(cube->norm[cube->n1 * cube->n1 * 3 + k]);
             g3x_Vertex3dv(cube->vrtx[cube->n1 * cube->n1 * 3 + k]);
 
-            k = min(i + step_y, cube->n3 - 1) * cube->n1 + (j);
+            k = min(i + step_z, cube->n3 - 1) * cube->n1 + (j);
             // k = (i + 1) *  cube->n1 + (j);
             g3x_Normal3dv(cube->norm[cube->n1 * cube->n1 * 3 + k]);
             g3x_Vertex3dv(cube->vrtx[cube->n1 * cube->n1 * 3 + k]);
@@ -124,12 +124,12 @@ void draw_cube(Shape *cube, G3Xvector scale_factor)
             g3x_Normal3dv(cube->norm[cube->n1 * cube->n1 * 4 + k]);
             g3x_Vertex3dv(cube->vrtx[cube->n1 * cube->n1 * 4 + k]);
 
-            k = (i)*cube->n1 + min(j + step_x, cube->n3 - 1);
+            k = (i)*cube->n1 + min(j + step_z, cube->n3 - 1);
             // k = (i)* cube->n1 + (j + 1);
             g3x_Normal3dv(cube->norm[cube->n1 * cube->n1 * 4 + k]);
             g3x_Vertex3dv(cube->vrtx[cube->n1 * cube->n1 * 4 + k]);
 
-            k = min(i + step_y, cube->n1 - 1) * cube->n1 + min(j + step_x, cube->n3 - 1);
+            k = min(i + step_y, cube->n1 - 1) * cube->n1 + min(j + step_z, cube->n3 - 1);
             // k = (i + 1) *  cube->n1 + (j + 1);
             g3x_Normal3dv(cube->norm[cube->n1 * cube->n1 * 4 + k]);
             g3x_Vertex3dv(cube->vrtx[cube->n1 * cube->n1 * 4 + k]);
@@ -155,7 +155,7 @@ void draw_cube(Shape *cube, G3Xvector scale_factor)
             g3x_Normal3dv(cube->norm[cube->n1 * cube->n1 * 5 + k]);
             g3x_Vertex3dv(cube->vrtx[cube->n1 * cube->n1 * 5 + k]);
 
-            k = min(i + step_y, cube->n1 - 1) * cube->n1 + min(j + step_x, cube->n3 - 1);
+            k = min(i + step_y, cube->n1 - 1) * cube->n1 + min(j + step_z, cube->n3 - 1);
             // k = (i + 1) *  cube->n1 + (j + 1);
             g3x_Normal3dv(cube->norm[cube->n1 * cube->n1 * 5 + k]);
             g3x_Vertex3dv(cube->vrtx[cube->n1 * cube->n1 * 5 + k]);

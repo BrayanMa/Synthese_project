@@ -15,6 +15,7 @@ typedef struct _shape_
 } Shape;
 
 int min(int a, int b);
+int max(int a, int b);
 
 Shape *init_cube();
 Shape *init_sphere();

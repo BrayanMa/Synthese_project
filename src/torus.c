@@ -3,8 +3,8 @@
 void draw_torus(Shape *torus, G3Xvector scale_factor)
 {
 
-    int step1 = min(1, (int)(1. / scale_factor.x));
-    int step2 = min(1, (int)(1. / scale_factor.y));
+    int step1 = max(1, (int)(1. / scale_factor.x));
+    int step2 = max(1, (int)(1. / scale_factor.y));
 
     for (int i = 0; i < torus->n2 - 1; i += step2)
     {

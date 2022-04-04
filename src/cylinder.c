@@ -2,10 +2,9 @@
 
 void draw_cylinder(Shape *cylinder, G3Xvector scale_factor)
 {
-
-    int step1 = min(1, (int)(1. / scale_factor.x));
-    int step2 = min(1, (int)(1. / scale_factor.y));
-    int step3 = min(1, (int)(1. / scale_factor.z));
+    int step1 = max(1, (int)(1. / scale_factor.x));
+    int step2 = max(1, (int)(1. / scale_factor.y));
+    int step3 = max(1, (int)(1. / scale_factor.z));
 
     // Face 1 = base du cylinder
     // double step_n1 = 1;
@@ -13,16 +12,16 @@ void draw_cylinder(Shape *cylinder, G3Xvector scale_factor)
 
     for (int i = 0; i < cylinder->n2 - 1; i += step2)
     {
-        for (int j = 0; j < cylinder->n1 - 1; j += step1)
+        for (int j = 0; j < cylinder->n1 - 1; j += step3)
         {
             int k;
-            k = (i)*cylinder->n1 + min(j + step1, cylinder->n1 - 1);
+            k = (i)*cylinder->n1 + min(j + step3, cylinder->n1 - 1);
             // k = (i)*cylinder->n1 + (j + 1);
 
             g3x_Normal3dv(cylinder->norm[k]);
             g3x_Vertex3dv(cylinder->vrtx[k]);
 
-            k = min(i + step2, cylinder->n2 - 1) * cylinder->n1 + min(j + step1, cylinder->n1 - 1);
+            k = min(i + step2, cylinder->n2 - 1) * cylinder->n1 + min(j + step3, cylinder->n1 - 1);
             // k = (i + 1) * cylinder->n1 + (j + 1);
             g3x_Normal3dv(cylinder->norm[k]);
             g3x_Vertex3dv(cylinder->vrtx[k]);
@@ -37,15 +36,18 @@ void draw_cylinder(Shape *cylinder, G3Xvector scale_factor)
             g3x_Normal3dv(cylinder->norm[k]);
             g3x_Vertex3dv(cylinder->vrtx[k]);
         }
-        for (int l = 0; l < cylinder->n3 - 1; l += step3)
+    }
+    for (int i = 0; i < cylinder->n2 - 1; i += step2)
+    {
+        for (int l = 0; l < cylinder->n3 - 1; l += step1)
         {
             int k;
-            k = (i)*cylinder->n1 + min(l + step3, cylinder->n3 - 1);
+            k = (i)*cylinder->n1 + min(l + step1, cylinder->n3 - 1);
             // k = (i)*cylinder->n1 + (l + 1);
             g3x_Normal3dv(cylinder->norm[(cylinder->n1 * cylinder->n2) + k]);
             g3x_Vertex3dv(cylinder->vrtx[(cylinder->n1 * cylinder->n2) + k]);
 
-            k = min(i + step2, cylinder->n2 - 1) * cylinder->n1 + min(l + step3, cylinder->n3 - 1);
+            k = min(i + step2, cylinder->n2 - 1) * cylinder->n1 + min(l + step1, cylinder->n3 - 1);
             // k = (i + 1) * cylinder->n1 + (l + 1);
             g3x_Normal3dv(cylinder->norm[(cylinder->n1 * cylinder->n2) + k]);
             g3x_Vertex3dv(cylinder->vrtx[(cylinder->n1 * cylinder->n2) + k]);
@@ -60,15 +62,18 @@ void draw_cylinder(Shape *cylinder, G3Xvector scale_factor)
             g3x_Normal3dv(cylinder->norm[(cylinder->n1 * cylinder->n2) + k]);
             g3x_Vertex3dv(cylinder->vrtx[(cylinder->n1 * cylinder->n2) + k]);
         }
-        for (int m = 0; m < cylinder->n3 - 1; m += step3)
+    }
+    for (int i = 0; i < cylinder->n2 - 1; i += step2)
+    {
+        for (int m = 0; m < cylinder->n3 - 1; m += step1)
         {
             int k;
-            k = (i)*cylinder->n1 + min(m + step3, cylinder->n3 - 1);
+            k = (i)*cylinder->n1 + min(m + step1, cylinder->n3 - 1);
             // k = (i)*cylinder->n1 + (l + 1);
             g3x_Normal3dv(cylinder->norm[(cylinder->n1 * cylinder->n2) * 2 + k]);
             g3x_Vertex3dv(cylinder->vrtx[(cylinder->n1 * cylinder->n2) * 2 + k]);
 
-            k = min(i + step2, cylinder->n2 - 1) * cylinder->n1 + min(m + step3, cylinder->n3 - 1);
+            k = min(i + step2, cylinder->n2 - 1) * cylinder->n1 + min(m + step1, cylinder->n3 - 1);
             // k = (i + 1) * cylinder->n1 + (l + 1);
             g3x_Normal3dv(cylinder->norm[(cylinder->n1 * cylinder->n2) * 2 + k]);
             g3x_Vertex3dv(cylinder->vrtx[(cylinder->n1 * cylinder->n2) * 2 + k]);
@@ -83,43 +88,6 @@ void draw_cylinder(Shape *cylinder, G3Xvector scale_factor)
             g3x_Normal3dv(cylinder->norm[(cylinder->n1 * cylinder->n2) * 2 + k]);
             g3x_Vertex3dv(cylinder->vrtx[(cylinder->n1 * cylinder->n2) * 2 + k]);
         }
-
-        /*for (int i = 0; i < NBM; i += step)
-        {
-            for (int j = 0; j < NBP; j += step)
-            {
-                // Premier triangle (SW -> SE -> NW)
-                NormalVertex3dv(side[i][min(j + step, NBP - 1)]);
-                NormalVertex3dv(side[min(i + step, NBM) % NBM][min(j + step, NBP - 1)]);
-                NormalVertex3dv(side[i][j]);
-
-                // Second triangle (NW -> SE -> NE)
-                NormalVertex3dv(side[i][j]);
-                NormalVertex3dv(side[min(i + step, NBM) % NBM][min(j + step, NBP - 1)]);
-                NormalVertex3dv(side[min(i + step, NBM) % NBM][j]);
-            }*/
-        /* for (int j = 0; j < NBC; j += step) {
-             // Premier triangle (SW -> SE -> NW)
-             NormalVertex3dv(top[i][min(j + step, NBC - 1)]);
-             NormalVertex3dv(top[min(i + step, NBM) % NBM][min(j + step, NBC - 1)]);
-             NormalVertex3dv(top[i][j]);
-
-             // Second triangle (NW -> SE -> NE)
-             NormalVertex3dv(top[i][j]);
-             NormalVertex3dv(top[min(i + step, NBM) % NBM][min(j + step, NBC - 1)]);
-             NormalVertex3dv(top[min(i + step, NBM) % NBM][j]);
-
-
-             // Premier triangle (SW -> SE -> NW)
-             NormalVertex3dv(bottom[i][min(j + step, NBC - 1)]);
-             NormalVertex3dv(bottom[min(i + step, NBM) % NBM][min(j + step, NBC - 1)]);
-             NormalVertex3dv(bottom[i][j]);
-
-             // Second triangle (NW -> SE -> NE)
-             NormalVertex3dv(bottom[i][j]);
-             NormalVertex3dv(bottom[min(i + step, NBM) % NBM][min(j + step, NBC - 1)]);
-             NormalVertex3dv(bottom[min(i + step, NBM) % NBM][j]);
-         }*/
     }
 }
 

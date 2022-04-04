@@ -99,6 +99,9 @@ void draw_node(Node *node)
 void apply_homot(Node *node, double x, double y, double z)
 {
     node->Md = g3x_Mat_x_Mat(g3x_Homothetie3d(x, y, z), node->Md);
+    node->scale_factor.x *= x;
+    node->scale_factor.y *= y;
+    node->scale_factor.z *= z;
 }
 
 void apply_rotat(Node *node, double x, double y, double z)
