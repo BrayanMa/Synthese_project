@@ -1,5 +1,5 @@
-#ifndef __H_UTILS
-#define __H_UTILS
+#ifndef __H_SHAPE
+#define __H_SHAPE
 
 #include <g3x.h>
 #include <math.h>
@@ -15,6 +15,7 @@ typedef struct _shape_
 } Shape;
 
 int min(int a, int b);
+int max(int a, int b);
 
 Shape *init_cube();
 Shape *init_sphere();
@@ -27,7 +28,5 @@ void draw_sphere(Shape *sphere, G3Xvector scale_factor);
 void draw_cylinder(Shape *cylinder, G3Xvector scale_factor);
 void draw_torus(Shape *torus, G3Xvector scale_factor);
 void draw_cone(Shape *cone, G3Xvector scale_factor);
-
-
 
 #endif

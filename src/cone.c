@@ -2,19 +2,12 @@
 
 void draw_cone(Shape *cone, G3Xvector scale_factor)
 {
-    g3x_Material(G3Xg, .2, .6, .9, 1, 1);
-    // glPushMatrix();
-    // glScaled(1, 0.2, 0.4);
 
-    glBegin(GL_QUADS);
 
     int step1 = min(1, (int)(1. / scale_factor.x));
     int step2 = min(1, (int)(1. / scale_factor.y));
     int step3 = min(1, (int)(1. / scale_factor.z));
 
-    // Face 1 = base du cone
-    // double step_n1 = 1;
-    // printf("%d\n", step_n1);
 
     for (int i = 0; i < cone->n2 - 1; i += step2)
     {
@@ -46,28 +39,26 @@ void draw_cone(Shape *cone, G3Xvector scale_factor)
             int k;
             k = (i)*cone->n1 + min(m + step3, cone->n3 - 1);
             // k = (i)*cone->n1 + (l + 1);
-            g3x_Normal3dv(cone->norm[(cone->n1 * cone->n2) * 2 + k]);
-            g3x_Vertex3dv(cone->vrtx[(cone->n1 * cone->n2) * 2 + k]);
+            g3x_Normal3dv(cone->norm[(cone->n1 * cone->n2) + k]);
+            g3x_Vertex3dv(cone->vrtx[(cone->n1 * cone->n2) + k]);
 
             k = min(i + step2, cone->n2 - 1) * cone->n1 + min(m + step3, cone->n3 - 1);
             // k = (i + 1) * cone->n1 + (l + 1);
-            g3x_Normal3dv(cone->norm[(cone->n1 * cone->n2) * 2 + k]);
-            g3x_Vertex3dv(cone->vrtx[(cone->n1 * cone->n2) * 2 + k]);
+            g3x_Normal3dv(cone->norm[(cone->n1 * cone->n2) + k]);
+            g3x_Vertex3dv(cone->vrtx[(cone->n1 * cone->n2) + k]);
 
             k = min(i + step2, cone->n2 - 1) * cone->n1 + (m);
             // k = (i + 1) * cone->n1 + (l);
-            g3x_Normal3dv(cone->norm[(cone->n1 * cone->n2) * 2 + k]);
-            g3x_Vertex3dv(cone->vrtx[(cone->n1 * cone->n2) * 2 + k]);
+            g3x_Normal3dv(cone->norm[(cone->n1 * cone->n2) + k]);
+            g3x_Vertex3dv(cone->vrtx[(cone->n1 * cone->n2) + k]);
 
             k = (i)*cone->n1 + (m);
             // k = (i)*cone->n1 + (l);
-            g3x_Normal3dv(cone->norm[(cone->n1 * cone->n2) * 2 + k]);
-            g3x_Vertex3dv(cone->vrtx[(cone->n1 * cone->n2) * 2 + k]);
+            g3x_Normal3dv(cone->norm[(cone->n1 * cone->n2) + k]);
+            g3x_Vertex3dv(cone->vrtx[(cone->n1 * cone->n2) + k]);
         }
 
     }
-    glEnd();
-    // glPopMatrix();
 }
 
 Shape *init_cone()
@@ -80,9 +71,9 @@ Shape *init_cone()
     cone->n2 = 100;
     cone->n3 = 100;
 
-    if (NULL == (cone->vrtx = malloc(cone->n1 * cone->n2 * 3 * sizeof(G3Xpoint))))
+    if (NULL == (cone->vrtx = malloc(cone->n1 * cone->n2 * 2 * sizeof(G3Xpoint))))
         return NULL;
-    if (NULL == (cone->norm = malloc(cone->n1 * cone->n2 * 3 * sizeof(G3Xvector))))
+    if (NULL == (cone->norm = malloc(cone->n1 * cone->n2 * 2 * sizeof(G3Xvector))))
         return NULL;
 
     double H = 2; // Hauteur du cylindre
@@ -108,14 +99,14 @@ Shape *init_cone()
         {
             //cone->vrtx[(cone->n1 * cone->n2) + (i * cone->n1 + k)] = (G3Xpoint){(k * r) * cos(i * theta), (k * r) * sin(i * theta), (H / 2.)};
             //cone->norm[(cone->n1 * cone->n2) + (i * cone->n1 + k)] = (G3Xvector){0, 0, 1};
-            cone->vrtx[(cone->n1 * cone->n2) * 2 + (i * cone->n1 + k)] = (G3Xpoint){(k * r) * cos(i * theta), (k * r) * sin(i * theta), -(H / 2.)};
-            cone->norm[(cone->n1 * cone->n2) * 2 + (i * cone->n1 + k)] = (G3Xvector){0, 0, -1};
+            cone->vrtx[(cone->n1 * cone->n2) + (i * cone->n1 + k)] = (G3Xpoint){(k * r) * cos(i * theta), (k * r) * sin(i * theta), -(H / 2.)};
+            cone->norm[(cone->n1 * cone->n2) + (i * cone->n1 + k)] = (G3Xvector){0, 0, -1};
         }
         k = cone->n3 - 1;
         //cone->vrtx[(cone->n1 * cone->n2) + (i * cone->n1 + k)] = (G3Xpoint){(k * r) * cos(i * theta), (k * r) * sin(i * theta), (H / 2.)};
         //cone->norm[(cone->n1 * cone->n2) + (i * cone->n1 + k)] = (G3Xvector){0, 0, 1};
-        cone->vrtx[(cone->n1 * cone->n2) * 2 + (i * cone->n1 + k)] = (G3Xpoint){(k * r) * cos(i * theta), (k * r) * sin(i * theta), -(H / 2.)};
-        cone->norm[(cone->n1 * cone->n2) * 2 + (i * cone->n1 + k)] = (G3Xvector){0, 0, -1};
+        cone->vrtx[(cone->n1 * cone->n2) + (i * cone->n1 + k)] = (G3Xpoint){(k * r) * cos(i * theta), (k * r) * sin(i * theta), -(H / 2.)};
+        cone->norm[(cone->n1 * cone->n2) + (i * cone->n1 + k)] = (G3Xvector){0, 0, -1};
     }
 
     cone->draw_faces = draw_cone;

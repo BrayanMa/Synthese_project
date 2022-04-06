@@ -1,13 +1,13 @@
-CC = gcc
+CC = clang
 
-CFLAGS = -Wall -Wno-comment -W -std=c17
+CFLAGS = -O2 -std=c17
 LFLAGS = $(libG3X) $(DBG_LIB)
-INCLUDE = $(incG3X)
+INCLUDE = -I./include $(incG3X)
 SOURCE = src/
 
 NAME = scene
 
-$(NAME): scene.o cube.o sphere.o cylinder.o torus.o cone.o shape.o
+$(NAME): scene.o cube.o sphere.o cylinder.o torus.o cone.o shape.o node.o
 	$(CC) -o $(NAME) $^ $(LFLAGS)
 	rm *.o
 
@@ -29,9 +29,19 @@ sphere.o: $(SOURCE)sphere.c	$(SOURCE)shape.h
 torus.o: $(SOURCE)torus.c	$(SOURCE)shape.h
 	$(CC) $(CFLAGS) $(INCLUDE) -c $(SOURCE)torus.c
 
-
 shape.o: $(SOURCE)shape.c $(SOURCE)shape.h
 	$(CC) $(CFLAGS) $(INCLUDE) -c $(SOURCE)shape.c
+
+node.o: $(SOURCE)node.c $(SOURCE)node.h
+	$(CC) $(CFLAGS) $(INCLUDE) -c $(SOURCE)node.c
+
+help :
+	@echo "---------compilation informations----------"
+	@echo "  processor      : $(PROCBIT)"
+	@echo "  compiler       : $(CC)"
+	@echo "  options        : $(CFLAGS)"
+	@echo "  lib g3Ox/OpenGl : $(libG3X)$(COMP)"
+	@echo "  headers        : $(incG3X)"
 
 clean:
 	rm *.o
