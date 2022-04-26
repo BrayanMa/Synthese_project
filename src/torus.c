@@ -6,6 +6,8 @@ void draw_torus(Shape *torus, G3Xvector scale_factor, double distanceCam)
     int step1 = max(1, (int)(1. / (scale_factor.x * (1. / distanceCam))));
     int step2 = max(1, (int)(1. / (scale_factor.y * (1. / distanceCam))));
 
+    glBegin(GL_QUADS);
+
     for (int i = 0; i < torus->n2 - 1; i += step2)
     {
         for (int j = 0; j < torus->n1 - 1; j += step1)
@@ -32,6 +34,7 @@ void draw_torus(Shape *torus, G3Xvector scale_factor, double distanceCam)
             g3x_Vertex3dv(torus->vrtx[k]);
         }
     }
+    glEnd();
 }
 
 Shape *init_torus()
