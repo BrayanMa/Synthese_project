@@ -1,12 +1,12 @@
 #include "shape.h"
 
-void draw_cone(Shape *cone, G3Xvector scale_factor)
+void draw_cone(Shape *cone, G3Xvector scale_factor, double distanceCam)
 {
 
 
-    int step1 = min(1, (int)(1. / scale_factor.x));
-    int step2 = min(1, (int)(1. / scale_factor.y));
-    int step3 = min(1, (int)(1. / scale_factor.z));
+    int step1 = max(1, (int)(1. / (scale_factor.x * (1. / distanceCam))));
+    int step2 = max(1, (int)(1. / (scale_factor.y * (1. / distanceCam))));
+    int step3 = max(1, (int)(1. / (scale_factor.z * (1. / distanceCam))));
 
 
     for (int i = 0; i < cone->n2 - 1; i += step2)
@@ -67,9 +67,9 @@ Shape *init_cone()
     if (NULL == (cone = malloc(1 * sizeof(Shape))))
         return NULL;
 
-    cone->n1 = 100;
-    cone->n2 = 100;
-    cone->n3 = 100;
+    cone->n1 = 500;
+    cone->n2 = 500;
+    cone->n3 = 500;
 
     if (NULL == (cone->vrtx = malloc(cone->n1 * cone->n2 * 2 * sizeof(G3Xpoint))))
         return NULL;

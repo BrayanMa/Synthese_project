@@ -1,10 +1,10 @@
 #include "shape.h"
 
-void draw_torus(Shape *torus, G3Xvector scale_factor)
+void draw_torus(Shape *torus, G3Xvector scale_factor, double distanceCam)
 {
 
-    int step1 = max(1, (int)(1. / scale_factor.x));
-    int step2 = max(1, (int)(1. / scale_factor.y));
+    int step1 = max(1, (int)(1. / (scale_factor.x * (1. / distanceCam))));
+    int step2 = max(1, (int)(1. / (scale_factor.y * (1. / distanceCam))));
 
     for (int i = 0; i < torus->n2 - 1; i += step2)
     {
@@ -40,8 +40,8 @@ Shape *init_torus()
     if (NULL == (torus = malloc(1 * sizeof(Shape))))
         return NULL;
 
-    torus->n1 = 100;
-    torus->n2 = 100;
+    torus->n1 = 500;
+    torus->n2 = 500;
 
     double R = 1.0; // Rayon du trou
     double S = 0.5;

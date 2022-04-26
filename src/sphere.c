@@ -1,15 +1,11 @@
 #include "shape.h"
 
-void draw_sphere(Shape *sphere, G3Xvector scale_factor)
+void draw_sphere(Shape *sphere, G3Xvector scale_factor, double distanceCam)
 {
-    g3x_Material(G3Xg, .2, .6, .9, 1, 1);
-    // glPushMatrix();
-    // glScaled(1, 0.2, 0.4);
 
-    glBegin(GL_QUADS);
 
-    int step1 = min(1, (int)(1. / scale_factor.x));
-    int step2 = min(1, (int)(1. / scale_factor.y));
+    int step1 = max(1, (int)(1. / (scale_factor.x * (1. / distanceCam))));
+    int step2 = max(1, (int)(1. / (scale_factor.y * (1. / distanceCam))));
 
     // Face 1 = base du sphere
     // double step_n1 = 1;
@@ -54,7 +50,6 @@ void draw_sphere(Shape *sphere, G3Xvector scale_factor)
             g3x_Vertex3dv(sphere->vrtx[k]);*/
         }
     }
-    glEnd();
     // glPopMatrix();
 }
 
@@ -64,8 +59,8 @@ Shape *init_sphere()
     if (NULL == (sphere = malloc(1 * sizeof(Shape))))
         return NULL;
 
-    sphere->n1 = 100;
-    sphere->n2 = 100;
+    sphere->n1 = 500;
+    sphere->n2 = 500;
 
     if (NULL == (sphere->vrtx = malloc(sphere->n1 * sphere->n2 * sizeof(G3Xpoint))))
         return NULL;
