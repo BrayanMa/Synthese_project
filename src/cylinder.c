@@ -2,8 +2,6 @@
 
 void draw_cylinder(Shape *cylinder, G3Xvector scale_factor, double distanceCam)
 {
-     printf("cylinder  : %f\n", distanceCam);
-
     int step1 = max(1, (int)(1. / (scale_factor.y * (1. / distanceCam))));
     int step2 = max(1, (int)(1. / (scale_factor.x * (1. / distanceCam))));
     int step3 = max(1, (int)(1. / (scale_factor.z * (1. / distanceCam))));

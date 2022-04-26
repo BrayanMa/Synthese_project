@@ -64,7 +64,6 @@ void add_shape(Node *father, Shape *instance)
 
 double get_distance(Node *node, G3Xpoint *cam)
 {
-    printf("%f, %f, %f\n", node->Md.m[12], node->Md.m[13], node->Md.m[14]);
     return sqrt(pow(node->Md.m[12] - cam->x, 2) + pow(node->Md.m[13] - cam->y, 2) + pow(node->Md.m[14] - cam->z, 2));
 }
 
