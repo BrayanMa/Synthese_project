@@ -1,10 +1,11 @@
 #include "shape.h"
 
-void draw_cube(Shape *cube, G3Xvector scale_factor)
+void draw_cube(Shape *cube, G3Xvector scale_factor, double distanceCam)
 {
-    int step_x = max(1, (int)(1. / scale_factor.x));
-    int step_y = max(1, (int)(1. / scale_factor.y));
-    int step_z = max(1, (int)(1. / scale_factor.z));
+    int step_x = max(1, (int)(1. / (scale_factor.x * (1. / distanceCam))));
+    int step_y = max(1, (int)(1. / (scale_factor.y * (1. / distanceCam))));
+    int step_z = max(1, (int)(1. / (scale_factor.z * (1. / distanceCam))));
+    glBegin(GL_QUADS);
 
     for (int i = 0; i < cube->n2 - 1; i += step_y)
     {
@@ -150,7 +151,7 @@ void draw_cube(Shape *cube, G3Xvector scale_factor)
             g3x_Normal3dv(cube->norm[cube->n1 * cube->n1 * 5 + k]);
             g3x_Vertex3dv(cube->vrtx[cube->n1 * cube->n1 * 5 + k]);
 
-            k = (i)*cube->n1 + min(j + step_x, cube->n3 - 1);
+            k = (i)*cube->n1 + min(j + step_z, cube->n3 - 1);
             // k = (i)* cube->n1 + (j + 1);
             g3x_Normal3dv(cube->norm[cube->n1 * cube->n1 * 5 + k]);
             g3x_Vertex3dv(cube->vrtx[cube->n1 * cube->n1 * 5 + k]);
@@ -166,6 +167,7 @@ void draw_cube(Shape *cube, G3Xvector scale_factor)
             g3x_Vertex3dv(cube->vrtx[cube->n1 * cube->n1 * 5 + k]);
         }
     }
+    glEnd();
 }
 
 Shape *init_cube()
@@ -174,9 +176,9 @@ Shape *init_cube()
     if (NULL == (cube = malloc(1 * sizeof(Shape))))
         return NULL;
 
-    cube->n1 = 100;
-    cube->n2 = 100;
-    cube->n3 = 100;
+    cube->n1 = 500;
+    cube->n2 = 500;
+    cube->n3 = 500;
 
     if (NULL == (cube->vrtx = malloc(cube->n1 * cube->n2 * 6 * sizeof(G3Xpoint))))
         return NULL;

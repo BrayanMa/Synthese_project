@@ -62,22 +62,15 @@ void add_shape(Node *father, Shape *instance)
     // tmp->next = init_node(father->Md, father->col, father->mat, father->scale_factor, instance);
 }
 
-/* On part du père on dessisne le down en premier puis tout les next */
-void draw_full_node(Node *father)
+double get_distance(Node *node, G3Xpoint *cam)
 {
-    if (father == NULL)
-        return;
-    draw_node(father);
-    if (father->next != NULL)
-        draw_full_node(father->next);
-    if (father->down != NULL)
-        draw_full_node(father->down);
-
-    return;
+    printf("%f, %f, %f\n", node->Md.m[12], node->Md.m[13], node->Md.m[14]);
+    return sqrt(pow(node->Md.m[12] - cam->x, 2) + pow(node->Md.m[13] - cam->y, 2) + pow(node->Md.m[14] - cam->z, 2));
 }
 
-void draw_node(Node *node)
+void draw_node(Node *node, G3Xpoint *cam)
 {
+    double dist = get_distance(node, cam);
     if (NULL == node)
         return;
     g3x_Material(node->col, node->mat[0], node->mat[1], node->mat[2], node->mat[3], 1);
@@ -85,20 +78,19 @@ void draw_node(Node *node)
     glMultMatrixd(node->Md.m);
     if (NULL != node->instance)
     {
-        glBegin(GL_QUADS);
-        node->instance->draw_faces(node->instance, node->scale_factor);
-        glEnd();
+        node->instance->draw_faces(node->instance, node->scale_factor, dist);
     }
-    if (node->down != NULL)
-        draw_node(node->down);
     glPopMatrix();
+
+    if (node->down != NULL)
+        draw_node(node->down, cam);
     if (node->next != NULL)
-        draw_node(node->next);
+        draw_node(node->next, cam);
 }
 
 void apply_homot(Node *node, double x, double y, double z)
 {
-    node->Md = g3x_Mat_x_Mat(g3x_Homothetie3d(x, y, z), node->Md);
+    node->Md = g3x_Mat_x_Mat(node->Md, g3x_Homothetie3d(x, y, z));
     node->scale_factor.x *= x;
     node->scale_factor.y *= y;
     node->scale_factor.z *= z;
@@ -106,12 +98,12 @@ void apply_homot(Node *node, double x, double y, double z)
 
 void apply_rotat(Node *node, double x, double y, double z)
 {
-    node->Md = g3x_Mat_x_Mat(g3x_RotationX(x), node->Md);
-    node->Md = g3x_Mat_x_Mat(g3x_RotationY(y), node->Md);
-    node->Md = g3x_Mat_x_Mat(g3x_RotationZ(z), node->Md);
+    node->Md = g3x_Mat_x_Mat(node->Md, g3x_RotationX(x));
+    node->Md = g3x_Mat_x_Mat(node->Md, g3x_RotationY(y));
+    node->Md = g3x_Mat_x_Mat(node->Md, g3x_RotationZ(z));
 }
 
 void apply_trans(Node *node, double x, double y, double z)
 {
-    node->Md = g3x_Mat_x_Mat(g3x_Translation3d(x, y, z), node->Md);
+    node->Md = g3x_Mat_x_Mat(node->Md, g3x_Translation3d(x, y, z));
 }

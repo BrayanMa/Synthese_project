@@ -10,8 +10,8 @@ typedef struct _shape_
     G3Xpoint *vrtx;  /* tableau des vertex   - spécifique d’une forme*/
     G3Xvector *norm; /* tableau des normales - spécifique d’une forme*/
     /*méthode d’affichage  - spécifique d’une forme*/
-    void (*draw_points)(struct _shape_ *, G3Xvector scale_factor); /* mode GL_POINTS*/
-    void (*draw_faces)(struct _shape_ *, G3Xvector scale_factor);  /* mode GL_TRIANGLES ou GL_QUADS */
+    void (*draw_points)(struct _shape_ *, G3Xvector scale_factor, double distanceCam); /* mode GL_POINTS*/
+    void (*draw_faces)(struct _shape_ *, G3Xvector scale_factor, double distanceCam);  /* mode GL_TRIANGLES ou GL_QUADS */
 } Shape;
 
 int min(int a, int b);
@@ -23,10 +23,10 @@ Shape *init_cylinder();
 Shape *init_torus();
 Shape *init_cone();
 
-void draw_cube(Shape *cube, G3Xvector scale_factor);
-void draw_sphere(Shape *sphere, G3Xvector scale_factor);
-void draw_cylinder(Shape *cylinder, G3Xvector scale_factor);
-void draw_torus(Shape *torus, G3Xvector scale_factor);
-void draw_cone(Shape *cone, G3Xvector scale_factor);
+void draw_cube(Shape *cube, G3Xvector scale_factorn, double distanceCam);
+void draw_sphere(Shape *sphere, G3Xvector scale_factor, double distanceCam);
+void draw_cylinder(Shape *cylinder, G3Xvector scale_factor, double distanceCam);
+void draw_torus(Shape *torus, G3Xvector scale_factor, double distanceCam);
+void draw_cone(Shape *cone, G3Xvector scale_factor, double distanceCam);
 
 #endif

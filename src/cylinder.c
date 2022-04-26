@@ -1,14 +1,17 @@
 #include "shape.h"
 
-void draw_cylinder(Shape *cylinder, G3Xvector scale_factor)
+void draw_cylinder(Shape *cylinder, G3Xvector scale_factor, double distanceCam)
 {
-    int step1 = max(1, (int)(1. / scale_factor.x));
-    int step2 = max(1, (int)(1. / scale_factor.y));
-    int step3 = max(1, (int)(1. / scale_factor.z));
+     printf("cylinder  : %f\n", distanceCam);
+
+    int step1 = max(1, (int)(1. / (scale_factor.y * (1. / distanceCam))));
+    int step2 = max(1, (int)(1. / (scale_factor.x * (1. / distanceCam))));
+    int step3 = max(1, (int)(1. / (scale_factor.z * (1. / distanceCam))));
 
     // Face 1 = base du cylinder
     // double step_n1 = 1;
     // printf("%d\n", step_n1);
+    glBegin(GL_QUADS);
 
     for (int i = 0; i < cylinder->n2 - 1; i += step2)
     {
@@ -89,6 +92,7 @@ void draw_cylinder(Shape *cylinder, G3Xvector scale_factor)
             g3x_Vertex3dv(cylinder->vrtx[(cylinder->n1 * cylinder->n2) * 2 + k]);
         }
     }
+    glEnd();
 }
 
 Shape *init_cylinder()
@@ -97,9 +101,9 @@ Shape *init_cylinder()
     if (NULL == (cylinder = malloc(1 * sizeof(Shape))))
         return NULL;
 
-    cylinder->n1 = 100;
-    cylinder->n2 = 100;
-    cylinder->n3 = 100;
+    cylinder->n1 = 1000;
+    cylinder->n2 = 1000;
+    cylinder->n3 = 1000;
 
     if (NULL == (cylinder->vrtx = malloc(cylinder->n1 * cylinder->n2 * 3 * sizeof(G3Xpoint))))
         return NULL;
