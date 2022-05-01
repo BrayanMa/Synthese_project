@@ -3,13 +3,9 @@
 void draw_sphere(Shape *sphere, G3Xvector scale_factor, double distanceCam)
 {
 
-
     int step1 = max(1, (int)(1. / (scale_factor.x * (1. / distanceCam))));
     int step2 = max(1, (int)(1. / (scale_factor.y * (1. / distanceCam))));
-
-    // Face 1 = base du sphere
-    // double step_n1 = 1;
-    // printf("%d\n", step_n1);
+    glBegin(GL_QUADS);
 
     for (int i = 0; i < sphere->n2 - 1; i += step2)
     {
@@ -17,40 +13,23 @@ void draw_sphere(Shape *sphere, G3Xvector scale_factor, double distanceCam)
         {
             int k;
             k = (i)*sphere->n1 + min(j + step2, sphere->n1 - 1);
-            // k = (i)*sphere->n1 + (j + 1);
             g3x_Normal3dv(sphere->norm[k]);
             g3x_Vertex3dv(sphere->vrtx[k]);
 
             k = min(i + step2, sphere->n2 - 1) * sphere->n1 + min(j + step1, sphere->n1 - 1);
-            // k = (i + 1) * sphere->n1 + (j + 1);
             g3x_Normal3dv(sphere->norm[k]);
             g3x_Vertex3dv(sphere->vrtx[k]);
 
             k = min(i + step2, sphere->n2 - 1) * sphere->n1 + (j);
-            // k = (i + 1) * sphere->n1 + (j);
             g3x_Normal3dv(sphere->norm[k]);
             g3x_Vertex3dv(sphere->vrtx[k]);
 
             k = (i)*sphere->n1 + (j);
-            // k = (i)*sphere->n1 + (j);
             g3x_Normal3dv(sphere->norm[k]);
             g3x_Vertex3dv(sphere->vrtx[k]);
-            /*int k;
-            k = (i)*sphere->n1 + (j);
-            g3x_Normal3dv(sphere->vrtx[k]);
-            g3x_Vertex3dv(sphere->vrtx[k]);
-            k = (i)*sphere->n1 + (j + 1);
-            g3x_Normal3dv(sphere->vrtx[k]);
-            g3x_Vertex3dv(sphere->vrtx[k]);
-            k = (i + 1) * sphere->n1 + (j + 1);
-            g3x_Normal3dv(sphere->vrtx[k]);
-            g3x_Vertex3dv(sphere->vrtx[k]);
-            k = (i + 1) * sphere->n1 + (j);
-            g3x_Normal3dv(sphere->vrtx[k]);
-            g3x_Vertex3dv(sphere->vrtx[k]);*/
         }
     }
-    // glPopMatrix();
+    glEnd();
 }
 
 Shape *init_sphere()

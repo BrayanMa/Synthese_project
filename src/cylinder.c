@@ -6,9 +6,6 @@ void draw_cylinder(Shape *cylinder, G3Xvector scale_factor, double distanceCam)
     int step2 = max(1, (int)(1. / (scale_factor.x * (1. / distanceCam))));
     int step3 = max(1, (int)(1. / (scale_factor.z * (1. / distanceCam))));
 
-    // Face 1 = base du cylinder
-    // double step_n1 = 1;
-    // printf("%d\n", step_n1);
     glBegin(GL_QUADS);
 
     for (int i = 0; i < cylinder->n2 - 1; i += step2)
@@ -139,6 +136,8 @@ Shape *init_cylinder()
         cylinder->vrtx[(cylinder->n1 * cylinder->n2) * 2 + (i * cylinder->n1 + k)] = (G3Xpoint){(k * r) * cos(i * theta), (k * r) * sin(i * theta), -(H / 2.)};
         cylinder->norm[(cylinder->n1 * cylinder->n2) * 2 + (i * cylinder->n1 + k)] = (G3Xvector){0, 0, -1};
     }
+
+    /* Assignation de la fonction de dessin spécifique au cylindre */
     cylinder->draw_faces = draw_cylinder;
     return cylinder;
 }

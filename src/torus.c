@@ -14,22 +14,18 @@ void draw_torus(Shape *torus, G3Xvector scale_factor, double distanceCam)
         {
             int k;
             k = (i)*torus->n1 + min(j + step1, torus->n1 - 1);
-            // k = (i)*torus->n1 + (j + 1);
             g3x_Normal3dv(torus->norm[k]);
             g3x_Vertex3dv(torus->vrtx[k]);
 
             k = min(i + step2, torus->n2 - 1) * torus->n1 + min(j + step1, torus->n1 - 1);
-            // k = (i + 1) * torus->n1 + (j + 1);
             g3x_Normal3dv(torus->norm[k]);
             g3x_Vertex3dv(torus->vrtx[k]);
 
             k = min(i + step2, torus->n2 - 1) * torus->n1 + (j);
-            // k = (i + 1) * torus->n1 + (j);
             g3x_Normal3dv(torus->norm[k]);
             g3x_Vertex3dv(torus->vrtx[k]);
 
             k = (i)*torus->n1 + (j);
-            // k = (i)*torus->n1 + (j);
             g3x_Normal3dv(torus->norm[k]);
             g3x_Vertex3dv(torus->vrtx[k]);
         }
@@ -46,7 +42,7 @@ Shape *init_torus()
     torus->n1 = 500;
     torus->n2 = 500;
 
-    double R = 1.0; // Rayon du trou
+    double R = 1.0; 
     double S = 0.5;
     if (NULL == (torus->vrtx = malloc(torus->n1 * torus->n2 * sizeof(G3Xpoint))))
         return NULL;
@@ -54,7 +50,7 @@ Shape *init_torus()
         return NULL;
 
     double theta = 2 * PI / (torus->n1 - 1);
-    double phi = 2 * PI / (torus->n2 - 1); // -1 ici, car on veut NBP faces et pas NBP lignes
+    double phi = 2 * PI / (torus->n2 - 1); 
 
     int i, j;
     for (i = 0; i < torus->n1; i++)

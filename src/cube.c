@@ -2,9 +2,12 @@
 
 void draw_cube(Shape *cube, G3Xvector scale_factor, double distanceCam)
 {
+    /* Mise en place des différents pas de parcours */
     int step_x = max(1, (int)(1. / (scale_factor.x * (1. / distanceCam))));
     int step_y = max(1, (int)(1. / (scale_factor.y * (1. / distanceCam))));
     int step_z = max(1, (int)(1. / (scale_factor.z * (1. / distanceCam))));
+
+    /*Demarage de la phase de dessin*/
     glBegin(GL_QUADS);
 
     for (int i = 0; i < cube->n2 - 1; i += step_y)
@@ -168,10 +171,12 @@ void draw_cube(Shape *cube, G3Xvector scale_factor, double distanceCam)
         }
     }
     glEnd();
+    /*Fin de la phase de dessin*/
 }
 
 Shape *init_cube()
 {
+    /* Allocation mémoire pour un cube*/
     Shape *cube;
     if (NULL == (cube = malloc(1 * sizeof(Shape))))
         return NULL;
@@ -260,7 +265,7 @@ Shape *init_cube()
     cube->vrtx[(cube->n1 * cube->n1) * 5 + (i * cube->n1 + j)] = (G3Xpoint){-1, 1., 1.};
     cube->norm[(cube->n1 * cube->n1) * 5 + (i * cube->n1 + j)] = (G3Xvector){-1., 0., 0.};
 
+    /* Assignation de la fonction de dessin spécifique au cône */
     cube->draw_faces = draw_cube;
-
     return cube;
 }

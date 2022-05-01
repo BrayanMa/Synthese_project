@@ -82,7 +82,7 @@ double mat[4] = {.2, .6, .9, 1};
 /* la fonction d'initialisation : appelée 1 seule fois, au début */
 static void init(void)
 {
-  /*Premier élément*/
+
   cube = init_cube();
   cube2 = init_cube();
   cube3 = init_cube();
@@ -152,8 +152,8 @@ static void init(void)
   apply_trans(pied4, -7, 17, 0);
 
   table_ronde2 = init_node(first_part->Md, (G3Xcolor){0.30, 0.20, 0.10, 0.00}, mat, first_part->scale_factor);
-  apply_rotat(table_ronde2, 3.14,0,0);
-  apply_trans(table_ronde2, .4,0, -1.6);
+  apply_rotat(table_ronde2, 3.14, 0, 0);
+  apply_trans(table_ronde2, .4, 0, -1.6);
 
   plateau4 = init_node_with_shape(table_ronde2->Md, (G3Xcolor){0.30, 0.20, 0.10, 0.00}, mat, table_ronde2->scale_factor, cylinder10);
   apply_homot(plateau4, .5, .5, .05);

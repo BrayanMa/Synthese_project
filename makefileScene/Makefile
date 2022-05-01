@@ -3,7 +3,7 @@ CC = clang
 CFLAGS = -O2 -std=c17
 LFLAGS = $(libG3X) $(DBG_LIB)
 INCLUDE = -I./include $(incG3X)
-SOURCE = src/
+SOURCE = ../src/
 
 NAME = scene
 
